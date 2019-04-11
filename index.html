@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Train Schedule</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets\css\style.css">
+</head>
+
+<body>
+
+  <div class="jumbotron">
+    <img src="../Train-Schedule/assets/images/MTA.jpg" alt="Monstropolis Transit Authority Logo" class="MTA" height="150px" width="150px">
+    Train Schedule
+    <img src="../Train-Schedule/assets/images/MTA.jpg" alt="Monstropolis Transit Authority Logo" class="MTA"height="150px" width="150px">  
+  </div>
+  <div id="cardHolder">
+    <div>
+      <div class="card mb-3">
+        <div class="card-header">
+          Current Train Schedule
+          <button id="myBtn">Add Train</button>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="tableHead" scope="col">Train Name</th>
+                <th class="tableHead" scope="col">Destination</th>
+                <th class="tableHead" scope="col">Frequency (min)</th>
+                <th class="tableHead" scope="col">Next Arrival</th>
+                <th class="tableHead" scope="col">Minutes Away</th>
+                <th class="tableHead" scope="col"> </th>
+                <th class="tableHead" scope="col"> </th>
+              </tr>
+            </thead>
+            <tbody id="trainTable">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <!-- Trigger/Open The Modal -->
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <!--<span class="close">&times;</span>-->
+        <!--<p>Some text in the Modal..</p>-->      
+        <div>
+          <div class="card">
+            <div id="modalHeader" class="card-header">
+              Add Train
+              <button id="myBtn">Add Train</button>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <label for="name-input">Train Name</label>
+                  <input type="text" class="form-control" id="name-input" placeholder="Enter train name" />
+                </div>
+                <div class="form-group">
+                  <label for="destination-input">Destination</label>
+                  <input type="text" class="form-control" id="destination-input" placeholder="Enter Destination" />
+                </div>
+                <div class="form-group">
+                  <label for="firstTrainTime-input">First Train Time (min)</label>
+                  <input type="text" class="form-control" id="firstTrainTime-input" placeholder="18:15" />
+                </div>
+                <div class="form-group">
+                  <label for="freq-input">Frequency (min)</label>
+                  <input type="number" class="form-control" id="freq-input" placeholder="60" />
+                </div>
+                <button id="addTrain" type="submit" class="btn btn-primary">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAYRiLr87gwcPGOouZnhe60rDq6d6xxd7s",
+      authDomain: "train-schedule-a1757.firebaseapp.com",
+      databaseURL: "https://train-schedule-a1757.firebaseio.com",
+      projectId: "train-schedule-a1757",
+      storageBucket: "train-schedule-a1757.appspot.com",
+      messagingSenderId: "1090750668801"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+  <script src="assets\javascript\app.js"></script>
+</body>
+
+</html>
