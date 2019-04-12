@@ -1,8 +1,14 @@
 // link to my database
 var database = firebase.database();
+
+//array to hold all my train objects
 var railYard = [];
+
+//variable to hold calculated schedule data
 var nextTime = "";
 var nextMin = "";
+
+//timer ID
 var intervalID;
 
 // Get the modal
@@ -35,6 +41,7 @@ window.onclick = function (event) {
 	}
 }
 
+//update the schedule every minute
 intervalId = setInterval(updateTimer, 60000);
 
 function updateTimer() {
@@ -44,38 +51,57 @@ function updateTimer() {
 	});
 }
 
+//remove train from the schedule
 $(document.body).on("click", ".remove", function () {
 	var ID = $(this).attr("data-ID");
+
+	//remove train from the database
 	var dbDelete = database.ref(ID);
 	dbDelete.remove();
+
+	//remove the all trains from the display
 	$(".train").remove();
+
+	//remove my train from the array if it is not my train
+	//send t tot he display
 	railYard.forEach(function (elem) {
 		if (elem.ID != ID) {
+			//not my train so display it
 			updateTable(elem);
 		} else {
+			//my train so remove it
 			railYard.splice(railYard.indexOf(elem), 1);
 		}
 	});
 });
 
-
+//Update a train
 $(document.body).on("click", ".update", function () {
 	//update
+	//get the train we want to change from the DB
 	var ID = $(this).attr("data-ID");
+	//change the text on the modal so the user knows 
+	//that we are changing not adding 
 	$("#addTrain").text("Update");
 	$("#modalHeader").text("Update Train");
+
+	//find the train I want to work on in the array
 	railYard.forEach(function (elem) {
 		if (elem.ID == ID) {
+			//grab the data from the objecy in railYard 
+			//and display it in the Modal
 			$("#name-input").val(elem.name);
 			$("#destination-input").val(elem.destination);
 			$("#firstTrainTime-input").val(elem.firstTrainTime);
 			$("#freq-input").val(elem.freq);
 			$("#addTrain").attr("data-ID", ID);
+			//display the Modal
 			modal.style.display = "block";
 		}
 	});
 });
 
+//calculate the next arrival and the minutes until that arrival
 function getNext(start, freq) {
 	var n = new Date();
 	trainStart = moment(start, "HH:mm");
@@ -97,10 +123,10 @@ function updateTable(currentLoco) {
 	var htmlStr = '<td id="name-' + ID + '">' + currentLoco.name + '</td>';
 
 	getNext(currentLoco.firstTrainTime, currentLoco.freq);
-	if ((nextMin / parseInt(currentLoco.freq)) > .667) {
+	if (nextMin >=20) {
 		colorText = "greenText"
 	} else {
-		if ((nextMin / parseInt(currentLoco.freq)) > .333) {
+		if (nextMin >= 10) {
 			colorText = "yellowText"
 		} else {
 			colorText = "redText"
@@ -116,14 +142,11 @@ function updateTable(currentLoco) {
 	tr.addClass("train");
 	$("#trainTable").append(tr);
 }
-//when train arrives update arrival to arrived until next departure
-//upon departure update next arrivaland departure
-//if time is greater than two thirds of frequency
-
 
 
 // on child added
 database.ref().on("child_added", function (childSnapshot) {
+	//grab a snapsot of the database
 	var train = childSnapshot.val();
 
 	//calculate next arrival and minutes away
@@ -134,28 +157,29 @@ database.ref().on("child_added", function (childSnapshot) {
 		firstTrainTime: "",
 		freq: "",
 	}
+	//create the train object
 	loco.ID = childSnapshot.key;
 	loco.name = train.name;
 	loco.destination = train.destination;
 	loco.firstTrainTime = train.firstTrainTime;
 	loco.freq = train.freq;
+
+	//put train object in the array
 	railYard.push(loco);
+
+	//update the display
 	updateTable(loco);
 });
 
 // onclick addTrain
 $("#addTrain").click(function (event) {
-	
+	//grab the data from the modal
 	var name = $("#name-input").val().trim();
 	var destination = $("#destination-input").val().trim();
 	var firstTrainTime = $("#firstTrainTime-input").val().trim();
 	var freq = $("#freq-input").val().trim();
 
 	if ($(this).text().toLowerCase() != "update") {
-		/*		var name = $("#name-input").val().trim();
-				var destination = $("#destination-input").val().trim();
-				var firstTrainTime = $("#firstTrainTime-input").val().trim();
-				var freq = $("#freq-input").val().trim();*/
 		database.ref().push(
 			{
 				name: name,
@@ -163,14 +187,17 @@ $("#addTrain").click(function (event) {
 				firstTrainTime: firstTrainTime,
 				freq: freq
 			});
+		//clearout the input objects so that they are ready to use next time
 		$("#name-input").val("");
 		$("#destination-input").val("");
 		$("#firstTrainTime-input").val("");
 		$("#freq-input").val("");
 	} else {
-		debugger;
+		//get the ID of the database record we are working on
 		var ID = $(this).attr("data-id");
+		//grab that record from the database
 		var dbUpdate = database.ref(ID);
+		//update the database
 		dbUpdate.set(
 			{
 				name: name,
@@ -180,6 +207,7 @@ $("#addTrain").click(function (event) {
 			});
 	}
 
+	//update the array objects
 	railYard.forEach(function(elem){
 		if(elem.ID == ID){
 			elem.name = name;
@@ -189,12 +217,15 @@ $("#addTrain").click(function (event) {
 		}
 	});
 
+	//update the modal
 	getNext(firstTrainTime, freq);
 	$("#name-" + ID).text(name);
 	$("#dest-" + ID).text(destination);
 	$("#freq-" + ID).text(freq);
 	$("#next-" + ID).text(nextTime);
 	$("#min-" + ID).text(nextMin);
+	//display the modal
 	modal.style.display = "none";
+	//return false keeps form from reloading
 	return false;
 });

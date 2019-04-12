@@ -14,18 +14,22 @@
 
 <body>
 
+  <!--header for the page-->
   <div class="jumbotron">
     <img src="../Train-Schedule/assets/images/MTA.jpg" alt="Monstropolis Transit Authority Logo" class="MTA" height="150px" width="150px">
     Train Schedule
     <img src="../Train-Schedule/assets/images/MTA.jpg" alt="Monstropolis Transit Authority Logo" class="MTA"height="150px" width="150px">  
   </div>
+  <!--Header for the train schedule section-->
   <div id="cardHolder">
     <div>
       <div class="card mb-3">
         <div class="card-header">
           Current Train Schedule
+          <!--button to add trains to the schedule-->
           <button id="myBtn">Add Train</button>
         </div>
+        <!--Add the body of the train schedule-->
         <div class="card-body">
           <table class="table">
             <thead>
@@ -48,40 +52,43 @@
   </div>
 
   <div>
-    <!-- Trigger/Open The Modal -->
 
-
+    <!--the entry/update of the trains will be added in a  modal-->
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
       <!-- Modal content -->
       <div class="modal-content">
-        <!--<span class="close">&times;</span>-->
-        <!--<p>Some text in the Modal..</p>-->      
         <div>
           <div class="card">
+            <!--title for the modal-->
             <div id="modalHeader" class="card-header">
               Add Train
-              <button id="myBtn">Add Train</button>
+              <!--<button id="myBtn">Add Train</button> -->
             </div>
             <div class="card-body">
               <form>
+                <!--get the name-->
                 <div class="form-group">
                   <label for="name-input">Train Name</label>
                   <input type="text" class="form-control" id="name-input" placeholder="Enter train name" />
                 </div>
+                <!--get the Destination-->
                 <div class="form-group">
                   <label for="destination-input">Destination</label>
                   <input type="text" class="form-control" id="destination-input" placeholder="Enter Destination" />
                 </div>
+                <!--get the time for the first train-->
                 <div class="form-group">
                   <label for="firstTrainTime-input">First Train Time (min)</label>
                   <input type="text" class="form-control" id="firstTrainTime-input" placeholder="18:15" />
                 </div>
+                <!--get the Frequency-->
                 <div class="form-group">
                   <label for="freq-input">Frequency (min)</label>
                   <input type="number" class="form-control" id="freq-input" placeholder="60" />
                 </div>
+                <!--button to submit-->
                 <button id="addTrain" type="submit" class="btn btn-primary">
                   Submit
                 </button>

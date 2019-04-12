@@ -1,13 +1,17 @@
+/*Apply font to whole page*/
 *{
     font-family: 'Quantico', sans-serif;
     border: 1px, solid, blue;
 }
 
+/*Set the backcolor and the text color for the cards 
+and the Header*/
 .jumbotron, tr, .card-header, .card-body{
     background-color: #30393A;
     color:#EBE4B7;
 }
 
+/*Style the Header*/
 .jumbotron{
     font-size: 4.5rem;
     padding-top: 32px;
@@ -16,37 +20,44 @@
     padding-right: 16px;
 }
 
+/*Center text on the Jumbotron and the table rows*/
 .jumbotron, tr{
     text-align: center;
 }
 
+/*Set the sub headers below the jumbotron*/
 .card-header, .tableHead{
     font-size: 25px;
     font-weight: bold;
 }
 
+/*button styling*/
 button, #addTrain{
     border-radius: 5px;
     background-color:#EBE4B7;
     color:#30393A;
     text-align: left;
 }
-/*tr{
-    background-color: #30393A;
-    color:#EBE4B7;
-}*/
+
+/*Red text used as train is very near*/
 .redText{
     color:red;
 }
+/*yellow text used as train is nears*/
 .yellowText{
     color:yellow;
 }
+/*green text used as train is not near*/
 .greenText{
     color:#13CF17;
 }
+
+/*Set font size of the card header*/
 .card-header{
     font-size: 30px;
 }
+
+/*Set Background color*/
 body{
     background-color: #604E28;
 }
@@ -88,12 +99,12 @@ body{
     text-decoration: none;
     cursor: pointer;
   }
+
+  /*button to display the Modal*/
 #myBtn{
     float:right;
     font-size: 15px;
     margin-right: 20px;
     margin-top:10px;
 }  
-monster{
-    background-color: #30393A; 
-}
+
