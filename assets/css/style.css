@@ -8,7 +8,7 @@
 and the Header*/
 .jumbotron, tr, .card-header, .card-body{
     background-color: #30393A;
-    color:#EBE4B7;
+    color:#D370E5 /*#EBE4B7;*/
 }
 
 /*Style the Header*/
@@ -34,9 +34,10 @@ and the Header*/
 /*button styling*/
 button, #addTrain{
     border-radius: 5px;
-    background-color:#EBE4B7;
-    color:#30393A;
+    background-color:#63C0C6;/*#EBE4B7;*/
+    color:whitesmoke;/*#D370E5; /*#30393A;*/
     text-align: left;
+    font-weight: bold;
 }
 
 /*Red text used as train is very near*/
@@ -49,7 +50,7 @@ button, #addTrain{
 }
 /*green text used as train is not near*/
 .greenText{
-    color:#13CF17;
+    color:#D6D035;/*#13CF17;*/
 }
 
 /*Set font size of the card header*/
@@ -58,8 +59,8 @@ button, #addTrain{
 }
 
 /*Set Background color*/
-body{
-    background-color: #604E28;
+body, .modal-content{
+    background-color: #D6D035;/* #604E28;*/
 }
 /* The Modal (background) */
 .modal {
@@ -78,7 +79,7 @@ body{
   
   /* Modal Content */
   .modal-content {
-    background-color: #fefefe;
+    /*background-color: #fefefe;*/
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
@@ -107,4 +108,6 @@ body{
     margin-right: 20px;
     margin-top:10px;
 }  
-
+.warning{
+    background-color:#E51616;
+}

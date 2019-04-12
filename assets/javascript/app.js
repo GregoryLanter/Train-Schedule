@@ -37,7 +37,8 @@ btn.onclick = function () {
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
 	if (event.target == modal) {
-		modal.style.display = "none";
+		hideModal();
+		//	modal.style.display = "none";
 	}
 }
 
@@ -78,6 +79,7 @@ $(document.body).on("click", ".remove", function () {
 //Update a train
 $(document.body).on("click", ".update", function () {
 	//update
+
 	//get the train we want to change from the DB
 	var ID = $(this).attr("data-ID");
 	//change the text on the modal so the user knows 
@@ -112,6 +114,12 @@ function getNext(start, freq) {
 	} else {
 		nextTime = start;
 		nextMin = trainStart.diff(moment(n), "minutes");
+	}
+	if(nextMin==NaN){
+		nextMin="";
+	}
+	if(nextTime==NaN){
+		nextTime="";
 	}
 }
 //}
@@ -178,7 +186,23 @@ $("#addTrain").click(function (event) {
 	var destination = $("#destination-input").val().trim();
 	var firstTrainTime = $("#firstTrainTime-input").val().trim();
 	var freq = $("#freq-input").val().trim();
-
+	//check to make sure the user put in something
+	if(name == "" || destination == "" || firstTrainTime == "" || freq == ""){
+		if(name == ""){
+			$("#name-input").addClass("warning");
+		} 
+		if(destination == ""){
+			$("#destination-input").addClass("warning");
+		}
+		if(firstTrainTime == ""){
+			$("#firstTrainTime-input").addClass("warning");
+		}
+		if(freq == ""){
+			$("#freq-input").addClass("warning");
+		}
+		$("#modalHeader").text("Please make an entry in every field");
+		return false;		
+	}
 	if ($(this).text().toLowerCase() != "update") {
 		database.ref().push(
 			{
@@ -224,8 +248,32 @@ $("#addTrain").click(function (event) {
 	$("#freq-" + ID).text(freq);
 	$("#next-" + ID).text(nextTime);
 	$("#min-" + ID).text(nextMin);
-	//display the modal
-	modal.style.display = "none";
+	//hide the modal
+	hideModal();
 	//return false keeps form from reloading
 	return false;
 });
+
+//if my inputs get focus remove warning
+$("#name-input").focus(function(){
+	$(this).removeClass("warning");
+});
+$("#destination-input").focus(function(){
+	$(this).removeClass("warning");
+});
+$("#firstTrainTime-input").focus(function(){
+	$(this).removeClass("warning");
+});
+$("#freq-input").focus(function(){
+	$(this).removeClass("warning");
+});
+
+//function to clear warnings and close Modal
+function hideModal(){
+	//hide the modal
+	$("#name-input").removeClass("warning");
+	$("#destination-input").removeClass("warning");
+	$("#firstTrainTime-input").removeClass("warning");
+	$("#freq-input").removeClass("warning");
+	modal.style.display = "none";	
+}
